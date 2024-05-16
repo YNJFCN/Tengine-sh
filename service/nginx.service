@@ -1,0 +1,13 @@
+   [Unit]
+   Description=nginx
+
+   [Service]
+   ExecStart=/main/apps/tengine/sbin/nginx
+   ExecReload=/bin/kill -s HUP $MAINPID
+   ExecStop=/bin/kill -s QUIT $MAINPID
+   KillMode=process
+   Restart=on-failure
+   RestartSec=3s
+
+   [Install]
+   WantedBy=multi-user.target
