@@ -66,7 +66,7 @@ tengine() {
     echo 'export PATH="/main/apps/tengine/sbin/:$PATH"' | sudo tee -a /root/.bashrc
   fi
 
-  sudo wget https://raw.githubusercontent.com/YNJFCN/My-Sh/main/service/nginx.service -O /etc/systemd/system/nginx.service
+  sudo wget https://raw.githubusercontent.com/YNJFCN/Tengine-sh/main/service/nginx.service -O /etc/systemd/system/nginx.service
   sudo systemctl daemon-reload
   sudo systemctl enable nginx.service
 
