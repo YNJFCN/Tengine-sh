@@ -220,19 +220,39 @@ mysql() {
 }
 
 postgresql() {
-  LOGI "安装postgresql"
-  apt install postgresql -y
-
-  if [ $? -ne 0 ]; then
-    LOGE "安装postgresql失败 脚本退出"
-  else
-    LOGI "安装postgresql成功"
-  fi
-
-  LOGI "postgresql运行状态"
-  sudo systemctl status postgresql
-
+  postgresqlMenu
   menu
+
+  installPostgresql() {
+    LOGI "安装postgresql"
+    if ! apt install postgresql -y; then
+      LOGE "安装postgresql失败 脚本退出"
+    fi
+
+    LOGI "postgresql运行状态"
+    if ! sudo systemctl status postgresql; then
+      LOGE "运行状态异常"
+    fi
+
+    postgresqlMenu
+  }
+
+  postgresqlMenu() {
+    LOGI "1. ------- 安装"
+    LOGI "2. ------- 更新"
+    LOGI "4. ------- 添加用户"
+    LOGI "4. ------- 移除用户"
+    LOGI "4. ------- 新增访问权限"
+    read -p -r "请输入选择 [0-16] Enter退出: " ORDER
+    case $ORDER in
+    1)
+      installPostgresql
+      ;;
+    *)
+      exit 1
+      ;;
+    esac
+  }
 }
 
 menu() {
@@ -243,8 +263,8 @@ menu() {
   LOGI "2. ------- 更新 & 升级 软件包"
   LOGI "3. ------- 申请SSL证书(acme申请)"
   LOGI "4. ------- 安装 Mysql"
-  LOGI "5. ------- 安装 Postgresql"
-  read -p "请输入选择 [0-16] Enter退出: " ORDER
+  LOGI "5. ------- Postgresql"
+  read -p -r "请输入选择 [0-16] Enter退出: " ORDER
 
   case $ORDER in
   1)
