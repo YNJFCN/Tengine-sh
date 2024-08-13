@@ -243,8 +243,8 @@ postgresql() {
     LOGI "4. ------- 添加用户"
     LOGI "4. ------- 移除用户"
     LOGI "4. ------- 新增访问权限"
-    read -p -r "请输入选择 [0-16] Enter退出: " ORDER
-    case $ORDER in
+    read -p -r "请输入选择 [0-16] Enter退出: " OPTION
+    case $OPTION in
     1)
       installPostgresql
       ;;
