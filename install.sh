@@ -264,7 +264,7 @@ menu() {
   LOGI "3. ------- 申请SSL证书(acme申请)"
   LOGI "4. ------- 安装 Mysql"
   LOGI "5. ------- Postgresql"
-  read -p -r "请输入选择 [0-16] Enter退出: " ORDER
+  read -p "请输入选择 [0-16] Enter退出: " ORDER
 
   case $ORDER in
   1)
