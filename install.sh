@@ -20,7 +20,7 @@ function LOGI() {
 [[ $EUID -ne 0 ]] && echo -e "${green}错误：${plain} 必须使用root用户运行此脚本！\n" && exit 1
 
 confirm() {
-  if [[ $# > 1 ]]; then
+  if [[ $# -gt 1 ]]; then
     echo && read -p "$1 [默认$2]: " temp
     if [[ "${temp}" == "" ]]; then
       temp=$2
@@ -57,7 +57,7 @@ tengine() {
   cd tengine-${version}
 
   echo -e "${green}开始配置编译选项...${plain}"
-  ./configure --prefix=$TENGINE
+  ./configure --prefix=$TENGINE --with-http_v2_module
 
   echo -e "${green}开始编译和安装...${plain}"
   sudo make install
