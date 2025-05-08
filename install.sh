@@ -155,9 +155,13 @@ issueCertificate() {
     sudo mkdir -p $certPath
   fi
 
-  ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} --ca-file ${certPath}/ca.cer \
-    --cert-file ${certPath}/${CF_Domain}.cer --key-file ${certPath}/${CF_Domain}.key \
-    --fullchain-file ${certPath}/fullchain.cer
+  ~/.acme.sh/acme.sh --installcert -d ${CF_Domain} -d *.${CF_Domain} \
+    --ca-file ${certPath}/ca.cer \
+    --cert-file ${certPath}/${CF_Domain}.cer \
+    --key-file ${certPath}/${CF_Domain}.key \
+    --fullchain-file ${certPath}/fullchain.cer \
+    --reloadcmd "nginx -s reload"
+
   if [ $? -ne 0 ]; then
     LOGE "证书安装失败,脚本退出"
     exit 1
